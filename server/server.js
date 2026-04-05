@@ -16,6 +16,19 @@ const sortTodosByOrder = (todos) => {
   return [...todos].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 };
 
+const formatTodo = (todo) => ({
+  id: todo._id.toString(),
+  title: todo.title,
+  description: todo.description,
+  completed: todo.completed,
+  priority: todo.priority,
+  dueDate: todo.dueDate,
+  order: todo.order,
+  createdAt: todo.createdAt,
+});
+
+const formatTodos = (todos) => todos.map(formatTodo);
+
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
@@ -31,7 +44,7 @@ mongoose
 app.get("/api/todos", async (_req, res) => {
   try {
     const todos = await Todo.find().lean();
-    res.json(sortTodosByOrder(todos));
+    res.json(formatTodos(sortTodosByOrder(todos)));
   } catch {
     res.status(500).json({ message: "Failed to fetch todos." });
   }
@@ -62,7 +75,7 @@ app.post("/api/todos", async (req, res) => {
       createdAt: new Date().toISOString(),
     });
 
-    res.status(201).json(newTodo);
+    res.status(201).json(formatTodo(newTodo));
   } catch {
     res.status(500).json({ message: "Failed to create todo." });
   }
@@ -89,7 +102,7 @@ app.put("/api/todos/reorder", async (req, res) => {
     }
 
     const updatedTodos = await Todo.find().lean();
-    res.json(sortTodosByOrder(updatedTodos));
+    res.json(formatTodos(sortTodosByOrder(updatedTodos)));
   } catch {
     res.status(500).json({ message: "Failed to reorder todos." });
   }
@@ -132,7 +145,7 @@ app.put("/api/todos/:id", async (req, res) => {
       { new: true },
     );
 
-    res.json(updatedTodo);
+    res.json(formatTodo(updatedTodo));
   } catch {
     res.status(500).json({ message: "Failed to update todo." });
   }
