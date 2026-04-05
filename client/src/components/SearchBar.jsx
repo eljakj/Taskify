@@ -27,7 +27,7 @@ export default function SearchBar({ searchTerm, setSearchTerm }) {
           type="text"
           value={searchTerm}
           onChange={(event) => setSearchTerm(event.target.value)}
-          placeholder="Search tasks, priority, date... (Press /)"
+          placeholder="Search tasks, priority, date... (Press Shift + /)"
           className="w-full rounded-full border border-zinc-200 bg-white/90 py-4 pl-11 pr-4 text-sm text-zinc-800 shadow-sm outline-none transition placeholder:text-zinc-400 focus:border-indigo-600 focus:ring-0 dark:border-slate-700 dark:bg-slate-900/90 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-indigo-500 dark:focus:ring-0"
         />
       </div>
