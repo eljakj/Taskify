@@ -2,8 +2,8 @@
 
 ## 🚀 Live Demo
 
-Frontend: https://taskify-three-cyan.vercel.app/
-Backend: https://taskify-api-knxa.onrender.com/api/todos
+- Frontend: https://taskify-three-cyan.vercel.app/
+- Backend: https://taskify-api-knxa.onrender.com/api/todos/
 
 ---
 
