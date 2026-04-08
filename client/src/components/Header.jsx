@@ -1,5 +1,5 @@
+import { useState } from "react";
 import ThemeToggle from "./ThemeToggle";
-import NotificationCenter from "./NotificationCenter";
 
 function LogoMark() {
   return (
@@ -40,12 +40,53 @@ function LogoMark() {
   );
 }
 
+function ProfileMenu({ user, onLogout, isLoggingOut }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="relative">
+      <button
+        type="button"
+        onClick={() => setIsOpen((prev) => !prev)}
+        className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-zinc-200 bg-white/85 text-sm font-bold text-zinc-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-white dark:border-slate-700 dark:bg-slate-900/85 dark:text-slate-200 dark:hover:bg-slate-900"
+        aria-label="Open profile menu"
+      >
+        {user?.name?.charAt(0)?.toUpperCase() || "U"}
+      </button>
+
+      {isOpen && (
+        <div className="absolute right-0 top-14 z-50 w-64 overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-2xl dark:border-slate-700 dark:bg-slate-900">
+          <div className="border-b border-zinc-200 px-4 py-3 dark:border-slate-700">
+            <p className="text-sm font-semibold text-zinc-900 dark:text-white">
+              {user.name}
+            </p>
+            <p className="mt-1 text-xs text-zinc-500 dark:text-slate-400">
+              {user.email}
+            </p>
+          </div>
+
+          <div className="p-2">
+            <button
+              type="button"
+              onClick={onLogout}
+              disabled={isLoggingOut}
+              className="flex w-full cursor-pointer items-center rounded-xl px-3 py-2.5 text-left text-sm font-medium text-zinc-700 transition hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-60 dark:text-slate-200 dark:hover:bg-slate-800"
+            >
+              {isLoggingOut ? "Logging out..." : "Logout"}
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function Header({
   theme,
   toggleTheme,
-  notifications,
-  dismissNotification,
-  clearNotifications,
+  user,
+  onLogout,
+  isLoggingOut,
 }) {
   return (
     <header className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-center sm:justify-between">
@@ -69,12 +110,12 @@ export default function Header({
       </div>
 
       <div className="flex flex-wrap items-center gap-3 self-start sm:self-auto">
-        <NotificationCenter
-          notifications={notifications}
-          dismissNotification={dismissNotification}
-          clearNotifications={clearNotifications}
-        />
         <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+        <ProfileMenu
+          user={user}
+          onLogout={onLogout}
+          isLoggingOut={isLoggingOut}
+        />
       </div>
     </header>
   );
