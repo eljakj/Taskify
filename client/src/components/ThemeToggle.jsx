@@ -5,26 +5,26 @@ export default function ThemeToggle({ theme, toggleTheme }) {
     <button
       type="button"
       onClick={toggleTheme}
-      className="group relative flex h-11 w-[102px] cursor-pointer items-center rounded-full border border-zinc-200 bg-white/85 px-2 shadow-sm transition hover:-translate-y-0.5 active:scale-[0.98] sm:h-14 sm:w-[124px] dark:border-slate-700 dark:bg-slate-900/85"
+      className="group relative flex h-10 w-[92px] cursor-pointer items-center rounded-full border border-zinc-200 bg-white/85 px-2 shadow-sm transition hover:-translate-y-0.5 active:scale-[0.98] sm:h-11 sm:w-[102px] dark:border-slate-700 dark:bg-slate-900/85"
       aria-label="Toggle theme"
       title={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >
       <span
-        className={`absolute top-1 h-9 w-9 rounded-full bg-indigo-600 shadow-lg shadow-indigo-600/25 transition-all duration-300 sm:top-1.5 sm:h-11 sm:w-11 ${
-          isDark ? "left-[56px] sm:left-[70px]" : "left-1"
+        className={`absolute top-1 h-8 w-8 rounded-full bg-indigo-600 shadow-lg shadow-indigo-600/25 transition-all duration-300 sm:h-9 sm:w-9 ${
+          isDark ? "left-[50px] sm:left-[56px]" : "left-1"
         }`}
       />
 
       <span className="relative z-10 flex w-full items-center justify-between px-1">
         <span
-          className={`flex h-7 w-7 items-center justify-center rounded-full transition sm:h-9 sm:w-9 ${
+          className={`flex h-6 w-6 items-center justify-center rounded-full transition sm:h-7 sm:w-7 ${
             !isDark ? "text-white" : "text-zinc-400 dark:text-slate-500"
           }`}
         >
           <svg
             viewBox="0 0 24 24"
             fill="none"
-            className="h-4 w-4 sm:h-5 sm:w-5"
+            className="h-3.5 w-3.5 sm:h-4 sm:w-4"
             xmlns="http://www.w3.org/2000/svg"
           >
             <circle
@@ -86,14 +86,14 @@ export default function ThemeToggle({ theme, toggleTheme }) {
         </span>
 
         <span
-          className={`relative z-10 flex h-7 w-7 items-center justify-center rounded-full transition sm:h-9 sm:w-9 ${
+          className={`relative z-10 flex h-6 w-6 items-center justify-center rounded-full transition sm:h-7 sm:w-7 ${
             isDark ? "text-white" : "text-zinc-400 dark:text-slate-500"
           }`}
         >
           <svg
             viewBox="0 0 24 24"
             fill="none"
-            className="h-4 w-4 sm:h-5 sm:w-5"
+            className="h-3.5 w-3.5 sm:h-4 sm:w-4"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
