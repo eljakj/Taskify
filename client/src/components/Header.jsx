@@ -3,11 +3,11 @@ import ThemeToggle from "./ThemeToggle";
 
 function LogoMark() {
   return (
-    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-600 via-violet-600 to-sky-500 shadow-lg shadow-indigo-500/25 sm:h-14 sm:w-14">
+    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-600 via-violet-600 to-sky-500 shadow-lg shadow-indigo-500/25 sm:h-14 sm:w-14">
       <svg
         viewBox="0 0 24 24"
         fill="none"
-        className="h-6 w-6 text-white sm:h-7 sm:w-7"
+        className="h-5 w-5 text-white sm:h-7 sm:w-7"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -78,7 +78,7 @@ function ProfileMenu({ user, onLogout, isLoggingOut }) {
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-zinc-200 bg-white/85 text-sm font-bold text-zinc-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-white dark:border-slate-700 dark:bg-slate-900/85 dark:text-slate-200 dark:hover:bg-slate-900"
+        className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-zinc-200 bg-white/85 text-sm font-bold text-zinc-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-white dark:border-slate-700 dark:bg-slate-900/85 dark:text-slate-200 dark:hover:bg-slate-900"
         aria-label="Open profile menu"
         aria-expanded={isOpen}
       >
@@ -86,7 +86,7 @@ function ProfileMenu({ user, onLogout, isLoggingOut }) {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 top-14 z-50 w-[min(16rem,calc(100vw-1.5rem))] overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-2xl dark:border-slate-700 dark:bg-slate-900">
+        <div className="absolute right-0 top-13 z-50 w-[min(15rem,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-2xl dark:border-slate-700 dark:bg-slate-900">
           <div className="border-b border-zinc-200 px-4 py-3 dark:border-slate-700">
             <p className="truncate text-sm font-semibold text-zinc-900 dark:text-white">
               {user.name}
@@ -120,16 +120,16 @@ export default function Header({
   isLoggingOut,
 }) {
   return (
-    <header className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-center sm:justify-between">
+    <header className="mb-5 flex flex-col gap-3 sm:mb-8 sm:flex-row sm:items-center sm:justify-between">
       <div className="flex min-w-0 items-start gap-3 sm:items-center sm:gap-4">
         <LogoMark />
 
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-            <h1 className="text-2xl font-black tracking-tight text-zinc-950 sm:text-3xl dark:text-white">
+            <h1 className="text-xl font-black tracking-tight text-zinc-950 sm:text-3xl dark:text-white">
               Taskify
             </h1>
-            <span className="rounded-full border border-indigo-200 bg-indigo-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-indigo-600 dark:border-indigo-500/30 dark:bg-indigo-500/10 dark:text-indigo-300">
+            <span className="rounded-full border border-indigo-200 bg-indigo-50 px-2 py-1 text-[9px] font-bold uppercase tracking-[0.2em] text-indigo-600 sm:px-2.5 sm:text-[10px] dark:border-indigo-500/30 dark:bg-indigo-500/10 dark:text-indigo-300">
               productivity
             </span>
           </div>
@@ -140,7 +140,7 @@ export default function Header({
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center gap-3 self-start sm:self-auto">
+      <div className="flex items-center gap-3 self-start pl-14 sm:self-auto sm:pl-0">
         <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
         <ProfileMenu
           user={user}
