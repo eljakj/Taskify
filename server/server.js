@@ -309,11 +309,11 @@ app.delete("/api/todos/:id", authMiddleware, async (req, res) => {
   }
 });
 
-app.delete("/api/todos", authMiddleware, async (_req, res) => {
+app.delete("/api/todos", authMiddleware, async (req, res) => {
   try {
-    await Todo.deleteMany({ user: _req.user.id, completed: true });
+    await Todo.deleteMany({ user: req.user.id, completed: true });
 
-    const remainingTodos = await Todo.find({ user: _req.user.id }).sort({
+    const remainingTodos = await Todo.find({ user: req.user.id }).sort({
       order: 1,
     });
 
