@@ -1,31 +1,29 @@
 import { useRef, useState } from "react";
 
 const priorities = [
-  {
-    value: "low",
-    label: "Low",
-    dot: "bg-emerald-400",
-    active:
-      "border-emerald-300 bg-emerald-50 text-emerald-700 dark:border-emerald-500/40 dark:bg-emerald-500/15 dark:text-emerald-300",
-    idle: "border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700/80",
-  },
-  {
-    value: "medium",
-    label: "Medium",
-    dot: "bg-amber-400",
-    active:
-      "border-amber-300 bg-amber-50 text-amber-700 dark:border-amber-500/40 dark:bg-amber-500/15 dark:text-amber-300",
-    idle: "border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700/80",
-  },
-  {
-    value: "high",
-    label: "High",
-    dot: "bg-red-400",
-    active:
-      "border-red-300 bg-red-50 text-red-700 dark:border-red-500/40 dark:bg-red-500/15 dark:text-red-300",
-    idle: "border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700/80",
-  },
+  { value: "low", label: "Low" },
+  { value: "medium", label: "Medium" },
+  { value: "high", label: "High" },
 ];
+
+function SelectIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      className="h-4 w-4 text-zinc-400 dark:text-slate-500"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M7 10L12 15L17 10"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
 function getLocalDate() {
   return new Date().toLocaleDateString("en-CA");
@@ -97,25 +95,23 @@ export default function TodoForm({ addTodo, isAdding }) {
             Priority
           </p>
 
-          <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-            {priorities.map((item) => {
-              const active = priority === item.value;
-
-              return (
-                <button
-                  key={item.value}
-                  type="button"
-                  onClick={() => setPriority(item.value)}
-                  disabled={isAdding}
-                  className={`flex min-h-[44px] cursor-pointer items-center justify-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 sm:rounded-full ${
-                    active ? item.active : item.idle
-                  }`}
-                >
-                  <span className={`h-2.5 w-2.5 rounded-full ${item.dot}`} />
+          <div className="relative">
+            <select
+              value={priority}
+              onChange={(event) => setPriority(event.target.value)}
+              disabled={isAdding}
+              className="min-h-[44px] w-full cursor-pointer appearance-none rounded-xl border border-zinc-200 bg-white px-4 py-3 pr-10 text-sm font-medium text-zinc-700 shadow-sm outline-none transition focus:border-indigo-600 sm:rounded-2xl sm:text-base dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:focus:border-indigo-500"
+            >
+              {priorities.map((item) => (
+                <option key={item.value} value={item.value}>
                   {item.label}
-                </button>
-              );
-            })}
+                </option>
+              ))}
+            </select>
+
+            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
+              <SelectIcon />
+            </span>
           </div>
         </div>
 
@@ -125,7 +121,7 @@ export default function TodoForm({ addTodo, isAdding }) {
           </p>
 
           <div
-            className="relative flex items-center overflow-hidden"
+            className="relative"
             onClick={!isAdding ? openDatePicker : undefined}
           >
             <input
@@ -135,7 +131,7 @@ export default function TodoForm({ addTodo, isAdding }) {
               onChange={(e) => setDueDate(e.target.value)}
               onFocus={!isAdding ? openDatePicker : undefined}
               disabled={isAdding}
-              className="h-[44px] w-full cursor-pointer rounded-xl border border-zinc-200 bg-white px-3 text-sm text-zinc-800 outline-none transition focus:border-indigo-600 sm:h-[48px] sm:rounded-2xl sm:px-4 sm:text-base dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-indigo-500 [color-scheme:light] dark:[color-scheme:dark]"
+              className="min-h-[44px] w-full cursor-pointer rounded-xl border border-zinc-200 bg-white px-3 py-3 text-sm text-zinc-800 outline-none transition [color-scheme:light] focus:border-indigo-600 sm:rounded-2xl sm:px-4 sm:text-base dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:[color-scheme:dark] dark:focus:border-indigo-500"
             />
           </div>
         </div>
