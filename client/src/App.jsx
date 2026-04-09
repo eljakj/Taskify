@@ -570,7 +570,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-[100dvh] text-zinc-900 transition-colors duration-300 dark:text-white">
+    <div className="min-h-[100dvh] py-6 text-zinc-900 transition-colors duration-300 dark:text-white">
       <ConfirmModal
         isOpen={confirmState.isOpen}
         title={confirmState.title}
