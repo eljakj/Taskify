@@ -164,11 +164,11 @@ http://localhost:5173
 
 ### 👤 Register Light
 
-![Register Light](./client/screenshots/Register-light.png)
+![Register Light](./client/screenshots/register-light.png)
 
 ### 👤 Register Dark
 
-![Register Dark](./client/screenshots/Register-dark.png)
+![Register Dark](./client/screenshots/register-dark.png)
 
 ---
 
