@@ -109,7 +109,7 @@ export default function LoginPage({ onLogin, onSwitchToRegister }) {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full cursor-pointer rounded-xl bg-zinc-900 py-3 text-sm font-semibold text-white hover:opacity-90 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60 sm:rounded-2xl sm:text-base dark:bg-white dark:text-black"
+              className="w-full cursor-pointer rounded-xl bg-indigo-600 py-3 text-body font-semibold text-white hover:opacity-90 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60 sm:rounded-2xl sm:text-base"
             >
               {isLoading ? "Logging in..." : "Login"}
             </button>
