@@ -42,10 +42,10 @@ export default function RegisterPage({ onRegister, onSwitchToLogin }) {
   };
 
   return (
-    <div className="min-h-dvh  px-8  text-zinc-900 dark:text-white">
+    <div className="min-h-dvh px-8 text-zinc-900 dark:text-white">
       <div className="mx-auto flex min-h-dvh max-w-5xl items-center justify-center pb-[max(1rem,env(safe-area-inset-bottom))]">
         <div className="w-full max-w-md rounded-xl border border-white/60 bg-white/75 p-5 shadow-[0_20px_80px_rgba(15,23,42,0.10)] sm:p-8 dark:border-white/10 dark:bg-slate-900/75 dark:shadow-[0_20px_80px_rgba(0,0,0,0.35)]">
-          <div className="mb-6 flex items-center space-between justify-between pb-4 border-b border-zinc-200 dark:border-slate-700">
+          <div className="mb-6 flex items-center justify-between border-b border-zinc-200 pb-4 dark:border-slate-700">
             <Logo showText={false} />
             <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
           </div>
@@ -132,7 +132,14 @@ export default function RegisterPage({ onRegister, onSwitchToLogin }) {
               disabled={isLoading}
               className="w-full cursor-pointer rounded-xl bg-indigo-600 py-3 text-body font-semibold text-white hover:opacity-90 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60 sm:rounded-2xl sm:text-base"
             >
-              {isLoading ? "Creating account..." : "Register"}
+              {isLoading ? (
+                <span className="flex items-center justify-center gap-2">
+                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+                  
+                </span>
+              ) : (
+                "Register"
+              )}
             </button>
           </form>
 

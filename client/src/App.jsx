@@ -79,9 +79,10 @@ export default function App() {
   const [user, setUser] = useState(getStoredUser);
   const [isAuthChecking, setIsAuthChecking] = useState(true);
 
-  const [authStatus, setAuthStatus] = useState("loading");
-  const [authMessage, setAuthMessage] = useState(
-    "Please wait while we prepare your workspace.",
+  const [showAppSplash, setShowAppSplash] = useState(false);
+  const [appSplashStatus, setAppSplashStatus] = useState("loading");
+  const [appSplashMessage, setAppSplashMessage] = useState(
+    "Preparing your workspace...",
   );
 
   const [todos, setTodos] = useState([]);
@@ -158,43 +159,41 @@ export default function App() {
         return;
       }
 
-      const minimumLoaderTime = 800;
-      const startTime = Date.now();
-
-      const finishWithDelay = (callback) => {
-        const elapsed = Date.now() - startTime;
-        const remaining = Math.max(0, minimumLoaderTime - elapsed);
-
-        window.setTimeout(() => {
-          callback?.();
-        }, remaining);
-      };
+      setShowAppSplash(true);
+      setAppSplashStatus("loading");
+      setAppSplashMessage("Verifying your secure session...");
 
       try {
-        setAuthStatus("loading");
-        setAuthMessage("Verifying your secure session.");
-
         const currentUser = await getCurrentUser(token);
 
-        setAuthStatus("success");
-        setAuthMessage("Authentication successful. Opening your workspace.");
+        setAppSplashStatus("success");
+        setAppSplashMessage("Welcome back. Opening your workspace.");
 
-        finishWithDelay(() => {
+        window.setTimeout(() => {
           setUser(currentUser);
+          setShowAppSplash(false);
           setIsAuthChecking(false);
           setIsLoading(false);
-        });
+        }, 700);
       } catch (error) {
         console.error(error);
 
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        setUser(null);
+        const message = error.message?.toLowerCase() || "";
 
-        finishWithDelay(() => {
-          setIsAuthChecking(false);
-          setIsLoading(false);
-        });
+        const isAuthError =
+          message.includes("unauthorized") ||
+          message.includes("invalid token") ||
+          message.includes("user not found");
+
+        if (isAuthError) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          setUser(null);
+        }
+
+        setShowAppSplash(false);
+        setIsAuthChecking(false);
+        setIsLoading(false);
       }
     };
 
@@ -614,14 +613,16 @@ export default function App() {
     return result;
   }, [normalizedTodos, filter, searchTerm, sortBy]);
 
-  if (isAuthChecking) {
+  if (showAppSplash) {
     return (
       <FullScreenLoader
         title={
-          authStatus === "success" ? "Welcome back" : "Checking authentication"
+          appSplashStatus === "success"
+            ? "Welcome back"
+            : "Checking authentication"
         }
-        message={authMessage}
-        status={authStatus}
+        message={appSplashMessage}
+        status={appSplashStatus}
       />
     );
   }
@@ -629,12 +630,32 @@ export default function App() {
   if (!user) {
     return authMode === "login" ? (
       <LoginPage
-        onLogin={(loggedInUser) => setUser(loggedInUser)}
+        onLogin={(loggedInUser) => {
+          setShowAppSplash(true);
+          setAppSplashStatus("success");
+          setAppSplashMessage(
+            "Authentication successful. Opening your workspace.",
+          );
+
+          window.setTimeout(() => {
+            setUser(loggedInUser);
+            setShowAppSplash(false);
+          }, 700);
+        }}
         onSwitchToRegister={() => setAuthMode("register")}
       />
     ) : (
       <RegisterPage
-        onRegister={(registeredUser) => setUser(registeredUser)}
+        onRegister={(registeredUser) => {
+          setShowAppSplash(true);
+          setAppSplashStatus("success");
+          setAppSplashMessage("Account created. Opening your workspace.");
+
+          window.setTimeout(() => {
+            setUser(registeredUser);
+            setShowAppSplash(false);
+          }, 700);
+        }}
         onSwitchToLogin={() => setAuthMode("login")}
       />
     );

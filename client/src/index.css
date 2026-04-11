@@ -28,7 +28,6 @@ body,
   min-height: 100%;
 }
 
-
 button,
 input,
 select,
@@ -47,11 +46,10 @@ body {
   @apply text-white bg-[radial-gradient(circle_at_top,rgba(79,70,229,0.22),transparent_30%),linear-gradient(180deg,#020617_0%,#0f172a_100%)];
 }
 
-
-@keyframes loaderCardIn {
+@keyframes cardReveal {
   from {
     opacity: 0;
-    transform: translateY(18px) scale(0.985);
+    transform: translateY(16px) scale(0.985);
   }
   to {
     opacity: 1;
@@ -59,14 +57,55 @@ body {
   }
 }
 
-@keyframes statusPop {
+@keyframes contentRise {
   from {
     opacity: 0;
-    transform: scale(0.88);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes loaderSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes statusPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.72);
+  }
+  70% {
+    transform: scale(1.06);
+  }
+  100% {
+    opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes statusRing {
+  0% {
+    opacity: 0.8;
+    transform: scale(0.72);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+}
+
+@keyframes ambientFloat {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(10px) translateX(6px);
   }
 }
 
