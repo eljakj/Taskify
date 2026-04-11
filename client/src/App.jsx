@@ -76,8 +76,8 @@ export default function App() {
   const { theme, toggleTheme } = useTheme();
 
   const [authMode, setAuthMode] = useState("login");
+  const [authState, setAuthState] = useState("checking"); // checking | guest | authenticated
   const [user, setUser] = useState(getStoredUser);
-  const [isAuthChecking, setIsAuthChecking] = useState(true);
 
   const [showAppSplash, setShowAppSplash] = useState(false);
   const [appSplashStatus, setAppSplashStatus] = useState("loading");
@@ -114,6 +114,8 @@ export default function App() {
     setIsAddingTodo(false);
     setIsConfirmLoading(false);
     setIsLoading(false);
+    setAuthState("guest");
+    setShowAppSplash(false);
   }, []);
 
   const pushNotification = useCallback((message, type = "success") => {
@@ -137,6 +139,22 @@ export default function App() {
     setNotifications((prev) => prev.filter((item) => item.id !== id));
   }, []);
 
+  const isAuthErrorMessage = useCallback((error) => {
+    const message = error?.message?.toLowerCase() || "";
+
+    return (
+      message.includes("unauthorized") ||
+      message.includes("invalid token") ||
+      message.includes("user not found")
+    );
+  }, []);
+
+  const handleSessionExpired = useCallback(() => {
+    pushNotification("Your session expired. Please sign in again.", "error");
+    clearSession();
+    setAuthMode("login");
+  }, [clearSession, pushNotification]);
+
   const handleLogout = useCallback(() => {
     if (isLoggingOut) return;
 
@@ -154,7 +172,7 @@ export default function App() {
       const token = localStorage.getItem("token");
 
       if (!token) {
-        setIsAuthChecking(false);
+        setAuthState("guest");
         setIsLoading(false);
         return;
       }
@@ -171,34 +189,27 @@ export default function App() {
 
         window.setTimeout(() => {
           setUser(currentUser);
+          setAuthState("authenticated");
           setShowAppSplash(false);
-          setIsAuthChecking(false);
           setIsLoading(false);
         }, 700);
       } catch (error) {
         console.error(error);
 
-        const message = error.message?.toLowerCase() || "";
-
-        const isAuthError =
-          message.includes("unauthorized") ||
-          message.includes("invalid token") ||
-          message.includes("user not found");
-
-        if (isAuthError) {
+        if (isAuthErrorMessage(error)) {
           localStorage.removeItem("token");
           localStorage.removeItem("user");
-          setUser(null);
         }
 
+        setUser(null);
+        setAuthState("guest");
         setShowAppSplash(false);
-        setIsAuthChecking(false);
         setIsLoading(false);
       }
     };
 
     checkAuth();
-  }, []);
+  }, [isAuthErrorMessage]);
 
   const fetchTodos = useCallback(
     async ({ retry = false } = {}) => {
@@ -215,13 +226,8 @@ export default function App() {
       } catch (error) {
         console.error(error);
 
-        if (
-          error.message?.toLowerCase().includes("unauthorized") ||
-          error.message?.toLowerCase().includes("invalid token") ||
-          error.message?.toLowerCase().includes("user not found")
-        ) {
-          clearSession();
-          setAuthMode("login");
+        if (isAuthErrorMessage(error)) {
+          handleSessionExpired();
           return;
         }
 
@@ -232,18 +238,18 @@ export default function App() {
         setIsRetrying(false);
       }
     },
-    [clearSession, pushNotification],
+    [handleSessionExpired, isAuthErrorMessage, pushNotification],
   );
 
   useEffect(() => {
-    if (!user) {
+    if (authState !== "authenticated" || !user) {
       setTodos([]);
       setIsLoading(false);
       return;
     }
 
     fetchTodos();
-  }, [fetchTodos, user]);
+  }, [authState, fetchTodos, user]);
 
   const normalizedTodos = useMemo(() => {
     return todos.map((todo, index) => ({
@@ -307,6 +313,12 @@ export default function App() {
       return true;
     } catch (error) {
       console.error(error);
+
+      if (isAuthErrorMessage(error)) {
+        handleSessionExpired();
+        return false;
+      }
+
       setErrorMessage(error.message || "Failed to add todo.");
       pushNotification("Failed to add task", "error");
       return false;
@@ -338,6 +350,12 @@ export default function App() {
       );
     } catch (error) {
       console.error(error);
+
+      if (isAuthErrorMessage(error)) {
+        handleSessionExpired();
+        return;
+      }
+
       setErrorMessage(error.message || "Failed to update todo.");
       pushNotification("Failed to update task", "error");
     }
@@ -358,6 +376,12 @@ export default function App() {
       );
     } catch (error) {
       console.error(error);
+
+      if (isAuthErrorMessage(error)) {
+        handleSessionExpired();
+        return;
+      }
+
       setErrorMessage(error.message || "Failed to update all todos.");
       pushNotification("Failed to update all todos", "error");
     }
@@ -380,6 +404,12 @@ export default function App() {
       pushNotification("Task deleted");
     } catch (error) {
       console.error(error);
+
+      if (isAuthErrorMessage(error)) {
+        handleSessionExpired();
+        return;
+      }
+
       setErrorMessage(error.message || "Failed to delete todo.");
       pushNotification("Failed to delete task", "error");
     }
@@ -420,6 +450,12 @@ export default function App() {
       return true;
     } catch (error) {
       console.error(error);
+
+      if (isAuthErrorMessage(error)) {
+        handleSessionExpired();
+        return false;
+      }
+
       setErrorMessage(error.message || "Failed to edit todo.");
       pushNotification("Failed to update task", "error");
       return false;
@@ -445,6 +481,12 @@ export default function App() {
       pushNotification("Completed tasks cleared");
     } catch (error) {
       console.error(error);
+
+      if (isAuthErrorMessage(error)) {
+        handleSessionExpired();
+        return;
+      }
+
       setErrorMessage(error.message || "Failed to clear completed todos.");
       pushNotification("Failed to clear completed tasks", "error");
     }
@@ -539,6 +581,12 @@ export default function App() {
       pushNotification("Task order updated");
     } catch (error) {
       console.error(error);
+
+      if (isAuthErrorMessage(error)) {
+        handleSessionExpired();
+        return;
+      }
+
       setErrorMessage(error.message || "Failed to save todo order.");
       pushNotification("Failed to save task order", "error");
 
@@ -627,7 +675,7 @@ export default function App() {
     );
   }
 
-  if (!user) {
+  if (authState === "guest") {
     return authMode === "login" ? (
       <LoginPage
         onLogin={(loggedInUser) => {
@@ -639,6 +687,7 @@ export default function App() {
 
           window.setTimeout(() => {
             setUser(loggedInUser);
+            setAuthState("authenticated");
             setShowAppSplash(false);
           }, 700);
         }}
@@ -653,12 +702,17 @@ export default function App() {
 
           window.setTimeout(() => {
             setUser(registeredUser);
+            setAuthState("authenticated");
             setShowAppSplash(false);
           }, 700);
         }}
         onSwitchToLogin={() => setAuthMode("login")}
       />
     );
+  }
+
+  if (authState !== "authenticated" || !user) {
+    return null;
   }
 
   return (
