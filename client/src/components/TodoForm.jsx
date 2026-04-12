@@ -164,8 +164,7 @@ export default function TodoForm({ addTodo, isAdding }) {
               onChange={(e) => setDueDate(e.target.value)}
               disabled={isAdding}
               className="pointer-events-none absolute inset-0 h-full w-full opacity-0 color-scheme dark:color-scheme"
-              tabIndex={-1}
-              aria-hidden="true"
+              
             />
           </div>
         </div>
