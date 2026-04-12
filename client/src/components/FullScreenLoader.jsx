@@ -47,9 +47,9 @@ function StatusIcon({ status }) {
   return (
     <div className="relative flex h-16 w-16 items-center justify-center">
       <div className="absolute inset-0 rounded-full border border-white/10 bg-white/[0.035]" />
-      <div className="absolute inset-[5px] rounded-full border border-white/6" />
-      <div className="absolute inset-[7px] animate-[loaderSpin_900ms_linear_infinite] rounded-full border-[2.5px] border-transparent border-t-indigo-400 border-r-violet-400" />
-      <div className="absolute inset-[18px] rounded-full bg-white/[0.03]" />
+      <div className="absolute inset-1.25 rounded-full border border-white/6" />
+      <div className="absolute inset-1.75 animate-[loaderSpin_900ms_linear_infinite] rounded-full border-[2.5px] border-transparent border-t-indigo-400 border-r-violet-400" />
+      <div className="absolute inset-4.8 rounded-full bg-white/3" />
     </div>
   );
 }
@@ -73,15 +73,15 @@ export default function FullScreenLoader({
 
   return (
     <div className="relative flex min-h-dvh items-center justify-center overflow-hidden text-white">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(99,102,241,0.13),transparent_38%),linear-gradient(180deg,#020617_0%,#0f172a_100%)]" />
+      
 
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute left-1/2 top-[-7rem] h-[18rem] w-[18rem] -translate-x-1/2 rounded-full bg-indigo-500/10 blur-3xl animate-[ambientFloat_8s_ease-in-out_infinite]" />
-        <div className="absolute right-[-4rem] top-1/3 h-56 w-56 rounded-full bg-violet-500/10 blur-3xl animate-[ambientFloat_10s_ease-in-out_infinite_reverse]" />
+        <div className="absolute left-1/2 -top-28 h-72 w-[18rem] -translate-x-1/2 rounded-full  animate-[ambientFloat_8s_ease-in-out_infinite]" />
+        <div className="absolute -right-16 top-1/3 h-56 w-56 rounded-full  animate-[ambientFloat_10s_ease-in-out_infinite_reverse]" />
       </div>
 
       <div className="relative w-full max-w-sm px-4">
-        <div className="rounded-3xl border border-white/10 bg-slate-900/60 p-8 text-center shadow-[0_20px_60px_rgba(0,0,0,0.42)] backdrop-blur-xl animate-[cardReveal_480ms_cubic-bezier(0.22,1,0.36,1)]">
+        <div className="rounded-3xl border border-white/10  p-8 text-center shadow-md animate-[cardReveal_480ms_cubic-bezier(0.22,1,0.36,1)]">
           <div className="mb-6 flex justify-center animate-[contentRise_520ms_80ms_both]">
             <Logo />
           </div>
