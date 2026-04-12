@@ -31,9 +31,7 @@ body {
   background: linear-gradient(180deg, var(--app-bg-light) 0%, var(--app-bg-light-soft) 100%);
 }
 
-.dark html {
-  background: linear-gradient(180deg, var(--app-bg-dark) 0%, var(--app-bg-dark-soft) 100%);
-}
+
 
 .dark body {
   background: linear-gradient(180deg, var(--app-bg-dark) 0%, var(--app-bg-dark-soft) 100%);
