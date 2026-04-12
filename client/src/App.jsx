@@ -716,7 +716,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-dvh py-4 text-zinc-900 sm:py-5 dark:text-white">
+    <div className="min-h-dvh px-6 py-8 text-zinc-900  dark:text-white ">
       <ConfirmModal
         isOpen={confirmState.isOpen}
         title={confirmState.title}
@@ -729,7 +729,7 @@ export default function App() {
         isLoading={isConfirmLoading}
       />
 
-      <main className="mx-auto max-w-3xl px-2 py-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-[env(safe-area-inset-top)] sm:px-4 sm:py-6 lg:px-6">
+      <main className="mx-auto max-w-3xl pb-[max(1rem,env(safe-area-inset-bottom))] pt-[env(safe-area-inset-top)]">
         <Header
           theme={theme}
           toggleTheme={toggleTheme}

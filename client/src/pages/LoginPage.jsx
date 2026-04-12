@@ -43,7 +43,7 @@ export default function LoginPage({ onLogin, onSwitchToRegister }) {
   return (
     <div className="min-h-dvh px-8 text-zinc-900 dark:text-white">
       <div className="mx-auto flex min-h-dvh max-w-5xl items-center justify-center pb-[max(1rem,env(safe-area-inset-bottom))]">
-        <div className="w-full max-w-md rounded-xl border border-white/60 bg-white/75 p-5 shadow-[0_20px_80px_rgba(15,23,42,0.10)] sm:p-8 dark:border-white/10 dark:bg-slate-900/75 dark:shadow-[0_20px_80px_rgba(0,0,0,0.35)]">
+        <div className="w-full max-w-md rounded-xl border border-black/10  bg-white/75 p-5  sm:p-8 dark:border-white/10 dark:bg-slate-900/75">
           <div className="mb-6 flex items-center justify-between border-b border-zinc-200 pb-4 dark:border-slate-700">
             <Logo showText={false} />
             <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
@@ -114,7 +114,6 @@ export default function LoginPage({ onLogin, onSwitchToRegister }) {
               {isLoading ? (
                 <span className="flex items-center justify-center gap-2">
                   <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
-                  
                 </span>
               ) : (
                 "Login"
