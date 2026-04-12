@@ -73,15 +73,13 @@ export default function FullScreenLoader({
 
   return (
     <div className="relative flex min-h-dvh items-center justify-center overflow-hidden text-white">
-      
-
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute left-1/2 -top-28 h-72 w-[18rem] -translate-x-1/2 rounded-full  animate-[ambientFloat_8s_ease-in-out_infinite]" />
         <div className="absolute -right-16 top-1/3 h-56 w-56 rounded-full  animate-[ambientFloat_10s_ease-in-out_infinite_reverse]" />
       </div>
 
       <div className="relative w-full max-w-sm px-4">
-        <div className="rounded-3xl border border-white/10  p-8 text-center shadow-md animate-[cardReveal_480ms_cubic-bezier(0.22,1,0.36,1)]">
+        <div className="rounded-2xl border border-white/60 p-8 text-center animate-[cardReveal_480ms_cubic-bezier(0.22,1,0.36,1)] dark:border-white/10">
           <div className="mb-6 flex justify-center animate-[contentRise_520ms_80ms_both]">
             <Logo />
           </div>
