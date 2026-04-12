@@ -4,7 +4,6 @@
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  
 }
 
 *,
@@ -18,30 +17,18 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
-
-
-body,
-#root {
-  min-height: 100%;
-}
-
-button,
-input,
-select,
-textarea {
-  font: inherit;
-}
-
 body {
   margin: 0;
   overflow-x: hidden;
   -webkit-tap-highlight-color: transparent;
-  @apply text-zinc-900 bg-[radial-gradient(circle_at_top,rgba(99,102,241,0.10),transparent_35%),linear-gradient(180deg,#f8fafc_0%,#eef2ff_100%)];
+  min-height: 100dvh;
 }
 
-.dark body {
-  @apply text-white bg-[radial-gradient(circle_at_top,rgba(79,70,229,0.22),transparent_30%),linear-gradient(180deg,#020617_0%,#0f172a_100%)];
+#root {
+  min-height: 100dvh;
 }
+
+
 
 @keyframes cardReveal {
   from {
