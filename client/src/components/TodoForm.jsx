@@ -126,9 +126,7 @@ export default function TodoForm({ addTodo, isAdding }) {
 
       <div className="grid gap-2.5 sm:grid-cols-2">
         <div className="rounded-xl border border-zinc-200 bg-white/85 p-3 shadow-md dark:border-slate-700 dark:bg-slate-900/80">
-          <p className="mb-2 text-muted font-semibold uppercase">
-            Priority
-          </p>
+          <p className="mb-2 text-muted font-semibold uppercase">Priority</p>
 
           <CustomSelect
             value={priority}
@@ -140,9 +138,7 @@ export default function TodoForm({ addTodo, isAdding }) {
         </div>
 
         <div className="rounded-xl border border-zinc-200 bg-white/85 p-3 shadow-md dark:border-slate-700 dark:bg-slate-900/80">
-          <p className="mb-2 text-muted font-semibold uppercase">
-            Due date
-          </p>
+          <p className="mb-2 text-muted font-semibold uppercase">Due date</p>
 
           <div className="relative">
             <button
@@ -166,8 +162,7 @@ export default function TodoForm({ addTodo, isAdding }) {
               value={dueDate}
               onChange={(e) => setDueDate(e.target.value)}
               disabled={isAdding}
-              className="text-base absolute inset-0 h-full w-full opacity-0 color-scheme dark:color-scheme"
-              
+              className="text-base absolute inset-0 h-full w-full opacity-0 color-scheme dark:color-scheme md:pointer-events-none"
             />
           </div>
         </div>
