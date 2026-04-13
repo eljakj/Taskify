@@ -121,7 +121,7 @@ export default function TodoForm({ addTodo, isAdding }) {
         placeholder="Add description..."
         rows={5}
         disabled={isAdding}
-        className="w-full resize-none rounded-xl border border-zinc-200 bg-white/90 px-4 py-2.5 text-base text-zinc-800outline-none hover:border-indigo-500 focus:border-indigo-500 sm:px-5 dark:border-slate-700 dark:bg-slate-900 dark:text-white "
+        className="w-full resize-none rounded-xl border border-zinc-200 bg-white/90 px-4 py-2.5 text-base text-zinc-800 outline-none hover:border-indigo-500 focus:border-indigo-500 sm:px-5 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
       />
 
       <div className="grid gap-2.5 sm:grid-cols-2">
