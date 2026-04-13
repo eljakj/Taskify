@@ -13,16 +13,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "http://localhost:3000",
-      "https://taskify-azure-three.vercel.app/",
-    ],
-    credentials: true,
-  }),
-);
+app.use(cors());
 app.use(express.json());
 
 if (!process.env.MONGODB_URI) {
