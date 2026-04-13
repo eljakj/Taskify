@@ -1,17 +1,18 @@
 # 📝 Taskify
 
-A modern fullstack task management app with a clean UI, smooth UX, and powerful features like drag & drop, filtering, and real-time search.
+A modern fullstack task management app with a clean UI, smooth UX, and powerful features like drag & drop, filtering, authentication, and real-time search.
 
-Built to demonstrate fullstack architecture, authentication, and responsive design.
+Built to demonstrate fullstack architecture, protected API design, and responsive frontend development.
 
 ---
 
 ## 🚀 Live Demo
 
-- 👉 Frontend: https://taskify-three-cyan.vercel.app/
-- 👉 API: https://taskify-api-knxa.onrender.com
+- Frontend: https://taskify-three-cyan.vercel.app
+- API: https://taskify-0cs4.onrender.com
+- Health Check: https://taskify-0cs4.onrender.com/api/health
 
-You can create your own account to explore the app.
+You can create your own account and test the app live.
 
 ---
 
@@ -19,39 +20,42 @@ You can create your own account to explore the app.
 
 ### 🧩 Task Management
 
-- Add, edit, delete tasks
+- Add, edit, and delete tasks
 - Drag & drop reordering
-- Clear completed tasks with animation
+- Clear completed tasks
+- Mark all tasks as completed
 
 ### 📅 Organization
 
-- Priority system (Low, Medium, High)
-- Due dates with smart status (Overdue, Today, Tomorrow)
+- Priority levels (Low, Medium, High)
+- Due dates
+- Overdue detection
 - Filtering (All, Active, Completed)
-- Advanced sorting (Manual, Newest, Oldest, Priority, Due date)
+- Sorting (Manual, Newest, Oldest, Priority, Due date)
 
 ### 🔍 UX & UI
 
 - Real-time search
 - Dark / Light mode
 - Toast notifications
-- Loading states + Skeleton UI
-- Error handling with retry system
+- Loading states
+- Skeleton UI
+- Error handling
 
 ### 🔐 Authentication
 
 - JWT-based authentication
+- Login & registration
+- Persistent session (localStorage)
 - User-specific todos
-- Protected API routes
 
 ---
 
 ## 📱 Responsive Design
 
 - Mobile-first layout
-- Optimized for iOS & Android
-- Native date picker support
-- Full-height layout (no white edges on mobile)
+- Works on all devices
+- Clean full-height UI
 
 ---
 
@@ -73,20 +77,22 @@ You can create your own account to explore the app.
 
 - JWT
 - bcryptjs
+- CORS
 
 ---
 
 ## ⚙️ Environment Variables
 
-Create a `.env` file inside the `server` folder:
+### Backend (`server/.env`)
 
 ```env
 PORT=5000
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_super_secret_key
+CLIENT_URL=http://localhost:5173
 ```
 
-Create a `.env` file inside the `client` folder:
+### Frontend (`client/.env`)
 
 ```env
 VITE_API_URL=http://localhost:5000
@@ -94,47 +100,53 @@ VITE_API_URL=http://localhost:5000
 
 ---
 
-## 📦 Installation
+## 🌐 Production Variables
 
-### 1. Clone the repository
+### Render (Backend)
+
+```env
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_super_secret_key
+CLIENT_URL=https://taskify-three-cyan.vercel.app
+```
+
+### Vercel (Frontend)
+
+```env
+VITE_API_URL=https://taskify-0cs4.onrender.com
+```
+
+---
+
+## 📦 Installation
 
 ```bash
 git clone https://github.com/eljakj/taskify.git
 cd taskify
 ```
 
-### 2. Install dependencies
-
-#### Frontend
+### Install dependencies
 
 ```bash
 cd client
 npm install
-```
 
-#### Backend
-
-```bash
-cd server
+cd ../server
 npm install
 ```
 
 ---
 
-## ▶️ Run the app
+## ▶️ Run Locally
 
 ### Start backend
 
 ```bash
 cd server
-node server.js
+npm start
 ```
 
-Backend runs on:
-
-```
-http://localhost:5000
-```
+→ http://localhost:5000
 
 ### Start frontend
 
@@ -143,62 +155,51 @@ cd client
 npm run dev
 ```
 
-Frontend runs on:
+→ http://localhost:5173
 
+---
+
+## 🚀 Deployment
+
+### Frontend (Vercel)
+
+- Root: `client`
+- Build: `npm run build`
+- Output: `dist`
+
+Env:
+
+```env
+VITE_API_URL=https://taskify-0cs4.onrender.com
 ```
-http://localhost:5173
+
+### Backend (Render)
+
+- Root: `server`
+- Build: `npm install`
+- Start: `npm start`
+
+Env:
+
+```env
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_super_secret_key
+CLIENT_URL=https://taskify-three-cyan.vercel.app
 ```
 
 ---
 
-## 📸 Screenshots
-
-### 🌞 Light Mode
-
-![Light Mode](./client/screenshots/light.png)
-
-![Light Mode](./client/screenshots/login-light.png)
-
-![Light Mode](./client/screenshots/register-light.png)
-
-
-
-### 🌙 Dark Mode
-
-![Dark Mode](./client/screenshots/dark.png)
-
-![Dark Mode](./client/screenshots/login-dark.png)
-
-![Dark Mode](./client/screenshots/register-dark.png)
-
-
-
----
-
-## 📁 Project Structure
+## ❤️ Health Check
 
 ```
-client/
- ├── src/
- ├── public/
- └── package.json
-
-server/
- ├── server.js
- ├── routes/
- ├── models/
- └── package.json
+GET /api/health
 ```
 
----
+Response:
 
-## ⚡ Future Improvements
-
-- 🗂 Task categories / tags
-- 🔔 Notifications / reminders
-- 📊 Analytics dashboard
-- 🎨 User-specific themes
-- 📱 PWA support
+```json
+{ "ok": true }
+```
 
 ---
 
@@ -215,14 +216,46 @@ server/
 - GET /api/todos
 - POST /api/todos
 - PUT /api/todos/:id
+- PUT /api/todos/reorder
+- PUT /api/todos/set-all-completed
 - DELETE /api/todos/:id
+- DELETE /api/todos
+
+---
+
+## 📁 Project Structure
+
+```
+taskify/
+├── client/
+├── server/
+└── README.md
+```
+
+---
+
+## 🔒 Security
+
+- Passwords hashed with bcrypt
+- JWT authentication
+- Protected routes
+- Env variables used for secrets
+
+---
+
+## ⚡ Future Improvements
+
+- Task categories
+- Notifications
+- Analytics dashboard
+- PWA support
 
 ---
 
 ## 👨‍💻 Author
 
-**Jad El Jakhlab**
-GitHub: https://github.com/eljakj
+Jad El Jakhlab  
+https://github.com/eljakj
 
 ---
 
