@@ -13,17 +13,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const allowedOrigins = (process.env.CORS_ORIGIN || "")
-  .split(",")
-  .map((origin) => origin.trim())
-  .filter(Boolean);
-
-app.use(
-  cors({
-    origin: allowedOrigins,
-    credentials: true,
-  }),
-);
+app.use(cors());
 app.use(express.json());
 
 if (!process.env.MONGODB_URI) {
@@ -35,14 +25,6 @@ if (!process.env.JWT_SECRET) {
   console.error("JWT_SECRET is missing");
   process.exit(1);
 }
-
-app.get("/", (req, res) => {
-  res.json({ message: "Taskify API is running" });
-});
-
-app.get("/api/health", (req, res) => {
-  res.json({ status: "ok" });
-});
 
 const sortTodosByOrder = (todos) => {
   return [...todos].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
@@ -322,9 +304,7 @@ app.put("/api/todos/reorder", authMiddleware, async (req, res) => {
     }
 
     if (!orderedIds.every((id) => mongoose.isValidObjectId(id))) {
-      return res
-        .status(400)
-        .json({ message: "orderedIds contain invalid ids." });
+      return res.status(400).json({ message: "orderedIds contain invalid ids." });
     }
 
     const todoIdSet = new Set(todos.map((todo) => todo._id.toString()));
