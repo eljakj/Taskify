@@ -72,7 +72,7 @@ export default function LoginPage({ onLogin, onSwitchToRegister }) {
                 value={formData.email}
                 onChange={handleChange}
                 autoComplete="email"
-                className="w-full rounded-xl border border-zinc-200 bg-white/90 px-4 py-2.5 text-body outline-none hover:border-indigo-500 focus:border-indigo-500 sm:px-5 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+                className="w-full rounded-xl border border-zinc-200 bg-white/90 px-4 py-2.5 text-body outline-none hover:border-indigo-500 focus:border-indigo-500 sm:px-5 dark:border-slate-700 dark:bg-slate-900 dark:text-white md:pointer-events-none"
                 required
               />
             </div>
@@ -92,7 +92,7 @@ export default function LoginPage({ onLogin, onSwitchToRegister }) {
                 value={formData.password}
                 onChange={handleChange}
                 autoComplete="current-password"
-                className="w-full rounded-xl border border-zinc-200 bg-white/90 px-4 py-2.5 text-body outline-none hover:border-indigo-500 focus:border-indigo-500 sm:px-5 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+                className="w-full rounded-xl border border-zinc-200 bg-white/90 px-4 py-2.5 text-body outline-none hover:border-indigo-500 focus:border-indigo-500 sm:px-5 dark:border-slate-700 dark:bg-slate-900 dark:text-white md:pointer-events-none"
                 required
               />
             </div>
